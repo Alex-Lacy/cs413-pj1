@@ -1,25 +1,44 @@
 var gameport = document.getElementById("gameport"); 
 
-var renderer = PIXI.autoDetectRenderer(400, 400, {backgroundColor: 0x3344ee});
+var renderer = PIXI.autoDetectRenderer(1800, 600, {backgroundColor: 0x3344ee});
 gameport.appendChild(renderer.view);
 
 var stage = new PIXI.Container();
 
-var texture = PIXI.Texture.fromImage("Test1.png");
+var texture = PIXI.Texture.fromImage("target.png");
 
-var sprite = new PIXI.Sprite(texture);
+var t1 = new PIXI.Sprite(texture);
+var t2 = new PIXI.Sprite(texture);
+var t3 = new PIXI.Sprite(texture);
+var t4 = new PIXI.Sprite(texture);
 
-sprite.anchor.x = 0.5;
-sprite.anchor.y = 0.5;
 
-sprite.position.x = 200;
-sprite.position.y = 200;
+//var target = new PIXI.Sprite(texture);
+//Adds a container for all the targets
+var targets = new PIXI.Container();
 
-stage.addChild(sprite);
+stage.addChild(targets);
+
+
+//targets.addChild(t1);
+
+
+
+//t1.anchor.x = 0.5;
+//t1.anchor.y = 0.5;
+
+//Creates each individual target
+targets.addChild(t1);
+t1.position.x = 200;
+t1.position.y = 200;
+t1.anchor.x = 0.5;
+t1.anchor.y = 0.5;
+
+
 
 function animate() {
 	requestAnimationFrame(animate);
-	sprite.rotation += 0.1;
+	t1.rotation += 0.5;
 	renderer.render(stage);
 
 }
