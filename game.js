@@ -16,7 +16,6 @@ var t4 = new PIXI.Sprite(texture);
 //var target = new PIXI.Sprite(texture);
 //Adds a container for all the targets
 var targets = new PIXI.Container();
-
 stage.addChild(targets);
 
 
@@ -34,11 +33,27 @@ t1.position.y = 200;
 t1.anchor.x = 0.5;
 t1.anchor.y = 0.5;
 
-
+var toggle = true;
 
 function animate() {
 	requestAnimationFrame(animate);
-	t1.rotation += 0.5;
+	if(toggle == 1){
+		
+		t1.position.x += 2;
+
+		if(t1.position.x == 1600){
+			toggle = 0;
+		}
+	}
+
+	else{
+		t1.position.x -= 2;
+		if(t1.position.x == 200){
+			toggle = 1;
+		}
+	}
+	
+
 	renderer.render(stage);
 
 }
