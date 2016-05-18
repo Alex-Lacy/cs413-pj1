@@ -6,6 +6,7 @@ gameport.appendChild(renderer.view);
 
 var stage = new PIXI.Container();
 
+
 // Creates the winning screen and hides it
 var texture2 = PIXI.Texture.fromImage("youwin.png");
 var winscreen = new PIXI.Sprite(texture2);
@@ -16,6 +17,7 @@ winscreen.position.x = 900;
 winscreen.position.y = 300;
 winscreen.anchor.x = .5;
 winscreen.anchor.y = .5;
+
 
 // Imports the texture and sets it to all of the targets
 var texture = PIXI.Texture.fromImage("target.png");
@@ -72,14 +74,20 @@ t3.on('mousedown', clear_sprite.bind(null, t3));
 
 
 
-
-
+var iswinner = false;
+var start_toggle = true;
+var start_time = 0;	
 // This function changes any sprite to no longer be renderable
 function clear_sprite(sp_name){
 
 	//sp_name.renderable = false;
 	targets.removeChild(sp_name)
 	numdown += 1; // Increments targets succesfully clicked
+	if(start_toggle == true){
+		var current = new Date();
+		start_time = current.getTime()
+	}
+	start_toggle = false;
 }
 
 
@@ -211,18 +219,31 @@ function animate() {
 	t3.rotation += .14;
 
 
-
+	renderer.render(stage);
 
 
 	// Adds the victory condition, and causes the victory text to display
 	if(numdown == 3){
-		winscreen.renderable = true;
+		if(iswinner == false){
+			iswinner = true;
+			winner();
+		}
+
 	}
 
-	renderer.render(stage);
+
 
 }
 
+
+function winner(){
+
+		winscreen.renderable = true;
+		var end = new Date();
+		var end_time = end.getTime();
+		var total_time = end_time - start_time;	
+		window.alert("It took you " + total_time/100 + " seconds to destroy the targets");
+	}
 
 
 
