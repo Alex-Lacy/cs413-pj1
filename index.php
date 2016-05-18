@@ -1,0 +1,1 @@
+<?php header('Location: ./cs413/project_1/');
