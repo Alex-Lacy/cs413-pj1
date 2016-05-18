@@ -32,14 +32,24 @@ t1.position.x = 200;
 t1.position.y = 200;
 t1.anchor.x = 0.5;
 t1.anchor.y = 0.5;
+t1.interactive = true;
 
-var toggle = true;
+t1.on('mousedown', clear_sprite);
+
+function clear_sprite(){
+
+	//t1.position.y += 100;
+	t1.renderable = false;
+}
+
+var toggle = 1;
+
 
 function animate() {
 	requestAnimationFrame(animate);
 	if(toggle == 1){
 		
-		t1.position.x += 2;
+		t1.position.x += 100;
 
 		if(t1.position.x == 1600){
 			toggle = 0;
@@ -47,7 +57,7 @@ function animate() {
 	}
 
 	else{
-		t1.position.x -= 2;
+		t1.position.x -= 100;
 		if(t1.position.x == 200){
 			toggle = 1;
 		}
