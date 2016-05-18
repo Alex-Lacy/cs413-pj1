@@ -38,8 +38,8 @@ stage.addChild(targets);
 targets.addChild(t1);
 t1.position.x = 200;
 t1.position.y = 250;
-t1.anchor.x = 0.5;
-t1.anchor.y = 0.5;
+t1.anchor.x = 0.8;
+t1.anchor.y = 0.7;
 t1.interactive = true;
 
 t1.on('mousedown', clear_sprite.bind(null, t1));
@@ -47,7 +47,7 @@ t1.on('mousedown', clear_sprite.bind(null, t1));
 
 // Adds the second target
 targets.addChild(t2);
-t2.position.x = 1000;
+t2.position.x = 1050;
 t2.position.y = 300;
 t2.anchor.x = 0.5;
 t2.anchor.y = 0.5;
@@ -77,7 +77,8 @@ t3.on('mousedown', clear_sprite.bind(null, t3));
 // This function changes any sprite to no longer be renderable
 function clear_sprite(sp_name){
 
-	sp_name.renderable = false;
+	//sp_name.renderable = false;
+	targets.removeChild(sp_name)
 	numdown += 1; // Increments targets succesfully clicked
 }
 
@@ -100,14 +101,14 @@ function animate() {
 		
 		t1.position.x += 10;
 
-		if(t1.position.x == 1750){
+		if(t1.position.x == 1700){
 			togglet1x = 0;
 		}
 	}
 
 	else{
-		t1.position.x -= 25;
-		if(t1.position.x == 50){
+		t1.position.x -= 100;
+		if(t1.position.x == 100){
 			togglet1x = 1;
 		}
 	}
@@ -115,7 +116,7 @@ function animate() {
 	// t1 y movement 
 	if(togglet1y == 1){
 		
-		t1.position.y += 10;
+		t1.position.y += 20;
 
 		if(t1.position.y == 550){
 			togglet1y = 0;
@@ -123,7 +124,7 @@ function animate() {
 	}
 
 	else{
-		t1.position.y -= 25;
+		t1.position.y -= 10;
 		if(t1.position.y == 50){
 			togglet1y = 1;
 		}
@@ -137,7 +138,7 @@ function animate() {
 	// Adds x movement
 	if(togglet2x == 1){
 		
-		t2.position.x += 25;
+		t2.position.x += 100;
 
 		if(t2.position.x == 1750){
 			togglet2x = 0;
@@ -169,7 +170,7 @@ function animate() {
 		}
 	}
 	
-
+	t2.rotation += 1.7
 
 	// Creates the movement patterns for the third target
 	// Adds x movement
