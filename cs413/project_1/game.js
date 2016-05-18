@@ -25,11 +25,13 @@ var t1 = new PIXI.Sprite(texture);
 var t2 = new PIXI.Sprite(texture);
 var t3 = new PIXI.Sprite(texture);
 var t4 = new PIXI.Sprite(texture);
+var t5 = new PIXI.Sprite(texture);
+
 
 var numdown = 0; // A counter for how many targets have been clicked
 
 
-//var target = new PIXI.Sprite(texture);
+
 //Adds a container for all the targets
 var targets = new PIXI.Container();
 stage.addChild(targets);
@@ -69,20 +71,49 @@ t3.interactive = true;
 t3.on('mousedown', clear_sprite.bind(null, t3));
 
 
+// Adds the fourth target
+targets.addChild(t4);
+t4.position.x = 300;
+t4.position.y = 400;
+t4.anchor.x = 0.9;
+t4.anchor.y = 0.9;
+t4.interactive = true;
+
+t4.on('mousedown', clear_sprite.bind(null, t4));
+
+
+// Adds the fifth target
+targets.addChild(t5);
+t5.position.x = 900;
+t5.position.y = 300;
+t5.anchor.x = 0.5;
+t5.anchor.y = 0.5;
+t5.interactive = true;
+
+t5.on('mousedown', clear_sprite.bind(null, t5));
 
 
 
-
-
+// Initializes a boolean that says if the player has won yet
 var iswinner = false;
+
+// A boolean that stermines when to start the timer
 var start_toggle = true;
+
+// Initializes the the time of start so that its in the global scope
 var start_time = 0;	
+
+
 // This function changes any sprite to no longer be renderable
 function clear_sprite(sp_name){
 
 	//sp_name.renderable = false;
 	targets.removeChild(sp_name)
-	numdown += 1; // Increments targets succesfully clicked
+
+	// Increments targets succesfully clicked
+	numdown += 1; 
+
+	// If it was the first target clicked, it starts the timer
 	if(start_toggle == true){
 		var current = new Date();
 		start_time = current.getTime()
@@ -91,15 +122,22 @@ function clear_sprite(sp_name){
 }
 
 
-
-var togglet1x = 1; // Saves a state change for whether targets are moving right or left, up or down
+// Saves a state change for whether targets are moving right or left, up or down
+var togglet1x = 1; 
 var togglet1y = 1;
 var togglet2x = 1;
 var togglet2y = 1;
 var togglet3x = 1;
 var togglet3y = 1;
+var togglet4x = 1;
+var togglet4y = 1;
+var togglet5x = 1;
+var togglet5y = 1;
 
 
+
+
+// The animation loop/function
 function animate() {
 	requestAnimationFrame(animate);
 
@@ -164,7 +202,7 @@ function animate() {
 
 	if(togglet2y == 1){
 		
-		t2.position.y += 25;
+		t2.position.y += 50;
 
 		if(t2.position.y == 550){
 			togglet2y = 0;
@@ -172,13 +210,14 @@ function animate() {
 	}
 
 	else{
-		t2.position.y -= 25;
+		t2.position.y -= 10;
 		if(t2.position.y == 50){
 			togglet2y = 1;
 		}
 	}
 	
-	t2.rotation += 1.7
+	//t2.rotation += 1.7
+
 
 	// Creates the movement patterns for the third target
 	// Adds x movement
@@ -219,11 +258,53 @@ function animate() {
 	t3.rotation += .14;
 
 
-	renderer.render(stage);
+
+
+	// Creates the movement patterns for the fourth target
+	// Adds x movement
+	
+	if(togglet4x == 1){
+		
+		t4.position.x += 5;
+
+		if(t4.position.x == 1700){
+			togglet4x = 0;
+		}
+	}
+
+	else{
+		t4.position.x -= 5;
+		if(t4.position.x == 100){
+			togglet4x = 1;
+		}
+	}
+
+	// t4 y movement 
+
+	if(togglet4y == 1){
+		
+		t4.position.y += 5;
+
+		if(t4.position.y == 500){
+			togglet4y = 0;
+		}
+	}
+
+	else{
+		t4.position.y -= 5;
+		if(t4.position.y == 100){
+			togglet4y = 1;
+		}
+	}
+
+	t4.rotation += .2;
+
+
+	
 
 
 	// Adds the victory condition, and causes the victory text to display
-	if(numdown == 3){
+	if(numdown == 5){
 		if(iswinner == false){
 			iswinner = true;
 			winner();
@@ -231,7 +312,7 @@ function animate() {
 
 	}
 
-
+	renderer.render(stage);
 
 }
 
@@ -242,7 +323,7 @@ function winner(){
 		var end = new Date();
 		var end_time = end.getTime();
 		var total_time = end_time - start_time;	
-		window.alert("It took you " + total_time/100 + " seconds to destroy the targets");
+		window.alert("It took you " + total_time/1000 + " seconds to destroy the targets");
 	}
 
 
