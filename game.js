@@ -1,16 +1,29 @@
-var gameport = document.getElementById("gameport"); 
 
+// Creates the standard setup, including setting the gameport and creating the renderer
+var gameport = document.getElementById("gameport"); 
 var renderer = PIXI.autoDetectRenderer(1800, 600, {backgroundColor: 0x3344ee});
 gameport.appendChild(renderer.view);
 
 var stage = new PIXI.Container();
 
-var texture = PIXI.Texture.fromImage("target.png");
+// Creates the winning screen and hides it
+var texture2 = PIXI.Texture.fromImage("youwin.png");
+var winscreen = new PIXI.Sprite(texture2);
+stage.addChild(winscreen);
+winscreen.renderable = false; 
 
+winscreen.position.x = 900;
+winscreen.position.y = 300;
+winscreen.anchor.x = .5;
+winscreen.anchor.y = .5;
+
+// Imports the texture and sets it to all of the targets
+var texture = PIXI.Texture.fromImage("target.png");
 var t1 = new PIXI.Sprite(texture);
 var t2 = new PIXI.Sprite(texture);
 var t3 = new PIXI.Sprite(texture);
 var t4 = new PIXI.Sprite(texture);
+
 var numdown = 0; // A counter for how many targets have been clicked
 
 
@@ -19,13 +32,6 @@ var numdown = 0; // A counter for how many targets have been clicked
 var targets = new PIXI.Container();
 stage.addChild(targets);
 
-
-//targets.addChild(t1);
-
-
-
-//t1.anchor.x = 0.5;
-//t1.anchor.y = 0.5;
 
 //Creates each individual target
 // Adds the first target
@@ -70,6 +76,8 @@ var togglet1x = 1; // Saves a state change for whether targets are moving right 
 var togglet1y = 1;
 var togglet2x = 1;
 var togglet2y = 1;
+
+
 function animate() {
 	requestAnimationFrame(animate);
 
@@ -85,14 +93,13 @@ function animate() {
 	}
 
 	else{
-		t1.position.x -= 10;
+		t1.position.x -= 25;
 		if(t1.position.x == 50){
 			togglet1x = 1;
 		}
 	}
 
 	// t1 y movement 
-
 	if(togglet1y == 1){
 		
 		t1.position.y += 10;
@@ -103,7 +110,7 @@ function animate() {
 	}
 
 	else{
-		t1.position.y -= 10;
+		t1.position.y -= 25;
 		if(t1.position.y == 50){
 			togglet1y = 1;
 		}
@@ -135,7 +142,7 @@ function animate() {
 
 	if(togglet2y == 1){
 		
-		t2.position.y += 5;
+		t2.position.y += 25;
 
 		if(t2.position.y == 550){
 			togglet2y = 0;
@@ -149,6 +156,9 @@ function animate() {
 		}
 	}
 	
+	if(numdown == 2){
+		winscreen.renderable = true;
+	}
 
 	renderer.render(stage);
 
@@ -156,3 +166,4 @@ function animate() {
 
 
 animate();
+
