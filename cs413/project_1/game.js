@@ -323,7 +323,7 @@ function winner(){
 		var end = new Date();
 		var end_time = end.getTime();
 		var total_time = end_time - start_time;	
-		window.alert("It took you " + total_time/1000 + " seconds to destroy the targets");
+		window.alert("It took you " + total_time/1000 + " seconds to destroy the targets!");
 	}
 
 
